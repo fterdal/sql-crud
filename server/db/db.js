@@ -2,4 +2,7 @@ const pgp = require('pg-promise')();
 
 const db = pgp('postgres://localhost:5432/sqlblog');
 
-module.exports = db;
+module.exports = {
+  pgp,
+  db
+};
