@@ -1,11 +1,9 @@
-const { db, pgp, sql } = require("./server/db")
-// This function does literally nothing, but it allows VSCode to format my SQL
-// statements nicely, so whatevs.
-// const sql = str => str
-// console.log(Object.keys(pgp))
-// console.log(Object.keys(db))
-
-const cs = new pgp.helpers.ColumnSet(['name'], {table: 'cats'});
+const {
+  resetCatsTable,
+  insertCats,
+  findCatById,
+  findAllCats
+} = require("./server/db/cats")
 
 const cats = [
   {name: "Rigatoni"},
@@ -18,14 +16,12 @@ const cats = [
 
 async function seed () {
   try {
-    // await db.none(sql`DROP TABLE cats`)
-    await db.none("DROP TABLE IF EXISTS cats")
-    // await db.none("DROP TABLE rooms")
-    await db.none("CREATE TABLE cats (id SERIAL PRIMARY KEY, name TEXT)")
-    // await db.none("INSERT INTO cats ($1:name) VALUES ($1:list)", [cats])
-    await db.none(pgp.helpers.insert(cats, cs))
-    const result = await db.many("SELECT * FROM cats")
-    console.log(result)
+    await resetCatsTable()
+    await insertCats(cats)
+    // const cat1 = await findCatById(1)
+    // console.log(cat1)
+    const allCats = await findAllCats()
+    console.log(allCats)
   }
   catch (err) {
     console.error(err)
