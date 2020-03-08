@@ -23,9 +23,14 @@ const findAllCats = () => {
   return db.many(sql('cats/findAll.sql'))
 }
 
+const deleteCatById = id => {
+  return db.none(sql('cats/deleteById.sql'), id)
+}
+
 module.exports = {
   insertCats,
   resetCatsTable,
   findCatById,
   findAllCats,
+  deleteCatById,
 }

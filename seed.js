@@ -2,8 +2,9 @@ const {
   resetCatsTable,
   insertCats,
   findCatById,
+  deleteCatById,
   findAllCats
-} = require("./server/db/cats")
+} = require("./server/db")
 
 const cats = [
   {name: "Rigatoni"},
@@ -20,6 +21,7 @@ async function seed () {
     await insertCats(cats)
     // const cat1 = await findCatById(1)
     // console.log(cat1)
+    // await deleteCatById(1)
     const allCats = await findAllCats()
     console.log(allCats)
   }
